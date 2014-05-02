@@ -50,6 +50,7 @@ module Paranoia
   end
 
   def destroy
+    return false if callback(:before_destroy) == false
     callbacks_result = run_callbacks(:destroy) { touch_paranoia_column(true) }
     callbacks_result ? self : false
   end
